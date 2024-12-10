@@ -3,3 +3,32 @@ node_modules/
 dist/
 temp.json
 error.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# 导出的xlsx
+product/*.xlsx
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn.lock*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*

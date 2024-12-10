@@ -140,16 +140,20 @@ router.post("/export", (req, res, next) => {
   let type = [1, 2, 3, 4, 5, defaultType],
     outData = [["工号", "姓名", "部门"]];
   cfg.prizes.forEach(item => {
-    outData.push([item.text]);
+    if(item.type === cfg.prizes[0].type) {
+      return
+    }
+    outData.push([`${item.text}「${item.title}」`]);
     outData = outData.concat(luckyData[item.type] || []);
   });
+  const fileName = cfg.EXPORT_FILE_NAME || "抽奖结果公布"
 
-  writeXML(outData, "/抽奖结果.xlsx")
+  writeXML(outData, `/${fileName}.xlsx`)
     .then(dt => {
       // res.download('/抽奖结果.xlsx');
       res.status(200).json({
         type: "success",
-        url: "抽奖结果.xlsx"
+        url: `${fileName}.xlsx`
       });
       log(`导出数据成功！`);
     })
@@ -191,6 +195,9 @@ function setLucky(type, data) {
   } else {
     luckyData[type] = Array.isArray(data) ? data : [data];
   }
+
+  global.console.log("setCache结果", luckyData);
+  global.console.log("-----------------------------------------------");
 
   return saveDataFile(luckyData);
 }
